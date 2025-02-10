@@ -39,7 +39,9 @@
             min-width: 100px;
             /* Ensure each day/weekday has a minimum width */
             box-sizing: border-box;
-            min-height: 100px;
+        }
+        .day:not(.weekday) {
+                min-height: 100px;
         }
 
         .date {
@@ -102,6 +104,8 @@
             overflow-x: auto;
         }
 
+        .feeds-section { display: none; }
+
         .feeds-table {
             width: 100%;
             border-collapse: collapse;
@@ -141,14 +145,22 @@
             margin: 5px;
             padding: 10px;
             border: none;
-            background-color: #007bff;
+            background-color: #b80100;
             color: white;
             cursor: pointer;
             border-radius: 5px;
         }
+        .filter-buttons button.active {
+            background-color: #8a0100;
+        }
 
         .filter-buttons button:hover {
-            background-color: #0056b3;
+            background-color: #8a0100cc;
+        }
+
+        .time-slot {display: none;}
+        .time-slot:has(.event:not(.hidden)) {
+            display: block;
         }
 
         @media (max-width: 768px) {
@@ -182,9 +194,9 @@
     <h1>{{ month_year }} <span class="switcher"><a href="{{ year }}-{{ '%02d'|format(month) }}-l.html">list
                 view</a></span> <span class="switcher"><a href="#feeds">feeds</a></span></h1>
     <div class="filter-buttons">
-        <button onclick="filterCategory('zzzswqer')">All</button>
+        <button class="active" id="all" onclick="filterCategory('all')">Show all</button>
         {% for category in calendar_categories %}
-        <button onclick="filterCategory('{{ category }}')">{{ category }}</button>
+        <button id="{{ category }}" onclick="filterCategory('{{ category }}')">{{ category }}</button>
         {% endfor %}
     </div>
     <div class="calendar-container">
@@ -277,13 +289,28 @@
     <script>
         function filterCategory(category) {
             const events = document.querySelectorAll('.event');
-            events.forEach(event => {
-                if (event.classList.contains(category)) {
-                    event.classList.remove('hidden');
-                } else {
-                    event.classList.add('hidden');
-                }
+            
+            let button = document.getElementById(category);
+            let allbuttons = document.querySelectorAll('.filter-buttons button');
+
+            allbuttons.forEach(button => {
+                button.classList.remove('active');
             });
+            button.classList.add('active');
+
+            if (category != 'all') {
+                events.forEach(event => {
+                    if (event.classList.contains(category)) {
+                        event.classList.remove('hidden');
+                    } else {
+                        event.classList.add('hidden');
+                    }
+                })
+            } else {
+                events.forEach(event => {
+                    event.classList.remove('hidden');
+                });
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function () {

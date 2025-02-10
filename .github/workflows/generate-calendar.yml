@@ -35,9 +35,9 @@ jobs:
       run: |
         python cal.py --generate --location bloomington --year $(date +%Y) --month $(date +%m) --timezone "America/Indiana/Indianapolis"
 
-#    - name: Bloomington, next month
-#      run: |
-#        python cal.py --generate --location bloomington --year $(date -d "next month" +%Y) --month $(date -d "next month" +%m) --timezone "America/Indiana/Indianapolis"
+    - name: Bloomington, next month
+      run: |
+        python cal.py --generate --location bloomington --year $(date -d "next month" +%Y) --month $(date -d "next month" +%m) --timezone "America/Indiana/Indianapolis"
     
     - name: Commit and push if changes
       env:

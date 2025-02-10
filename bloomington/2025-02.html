@@ -152,7 +152,9 @@
         .filter-buttons button:hover {
             background-color: #8a0100cc;
         }
-
+        .day:not(.weekday) {
+                min-height: 100px;
+            }
         @media (max-width: 768px) {
             .calendar {
                 grid-template-columns: repeat(7, minmax(100px, 1fr));
@@ -163,9 +165,7 @@
             .weekday {
                 min-width: 100px;
             }
-            .day:not(.weekday) {
-                min-height: 100px;
-            }
+
         }
 
         @media (max-width: 600px) {
