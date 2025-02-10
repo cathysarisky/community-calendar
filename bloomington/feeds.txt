@@ -79,4 +79,3 @@ https://mcpl.evanced.info/signupadmin/eventsxml.aspx?dm=ical&eventid=85020 Libra
 https://tockify.com/api/feeds/ics/bloomington.arts.calendar Arts
 https://www.bloomingtoncommunityband.org/events/month/?ical=1 Music
 https://www.vocesnovae.org/concerts/2023/11/12/six-degrees-of-separation?format=ical Music
-https://www.vocesnovae.org/concerts/2023/11/12/six-degrees-of-separation?format=ical Music
