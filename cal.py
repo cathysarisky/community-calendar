@@ -202,6 +202,12 @@ def create_calendar_weeks(year, month, grouped_events):
     
     return calendar_weeks
 
+def extract_categories(events):
+    categories = set()
+    for event in events:
+        categories.add(event['category'])
+    return sorted(categories)
+
 def render_html_calendar(grouped_events, year, month, feeds, output_dir='.'):
     env = Environment(loader=FileSystemLoader('.'))
     calendar_template = env.get_template('calendar_template.html')
@@ -209,6 +215,7 @@ def render_html_calendar(grouped_events, year, month, feeds, output_dir='.'):
 
     calendar_weeks = create_calendar_weeks(year, month, grouped_events)
     month_year = datetime(year, month, 1).strftime('%B %Y')
+    calendar_categories = extract_categories([event for day_events in grouped_events.values() for time_events in day_events.values() for event in time_events])
 
     # Render calendar view
     rendered_calendar = calendar_template.render(
@@ -216,17 +223,19 @@ def render_html_calendar(grouped_events, year, month, feeds, output_dir='.'):
         month_year=month_year,
         feeds=sorted(feeds, key=lambda x: x['name']),
         year=year,
-        month=month
+        month=month,
+        calendar_categories=calendar_categories
     )
 
     # Render list view
     rendered_list = list_template.render(
         grouped_events=grouped_events,
-        calendar_weeks=calendar_weeks,  # Add this line
+        calendar_weeks=calendar_weeks,
         month_year=month_year,
         feeds=sorted(feeds, key=lambda x: x['name']),
         year=year,
-        month=month
+        month=month,
+        calendar_categories=calendar_categories
     )
 
     # Save calendar view

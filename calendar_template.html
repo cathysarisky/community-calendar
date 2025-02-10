@@ -127,6 +127,25 @@
             font-size: small;
         }
 
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-buttons button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #0056b3;
+        }
+
         @media (max-width: 768px) {
             .calendar {
                 grid-template-columns: repeat(7, minmax(100px, 1fr));
@@ -157,7 +176,11 @@
 <body>
     <h1>{{ month_year }} <span class="switcher"><a href="{{ year }}-{{ '%02d'|format(month) }}-l.html">list
                 view</a></span> <span class="switcher"><a href="#feeds">feeds</a></span></h1>
-
+    <div class="filter-buttons">
+        {% for category in calendar_categories %}
+        <button onclick="filterCategory('{{ category }}')">{{ category }}</button>
+        {% endfor %}
+    </div>
     <div class="calendar-container">
         <div class="calendar">
             <div class="weekday">Monday</div>
@@ -246,6 +269,17 @@
     <script src="../sorttable.js"></script>
 
     <script>
+        function filterCategory(category) {
+            const events = document.querySelectorAll('.event');
+            events.forEach(event => {
+                if (event.classList.contains(category)) {
+                    event.style.display = 'block';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             const events = document.querySelectorAll('.event-title');
 
