@@ -60,6 +60,10 @@
             margin-bottom: 5px;
             position: relative;
         }
+        .time-slot {display: none;}
+        .time-slot:has(.event:not(.hidden)) {
+            display: block;
+        }
 
         .all-day {
             border-radius: 3px;
@@ -11552,9 +11556,9 @@ Try out this family-friendly recipe, & leave with groceries to recreate it at ho
             const events = document.querySelectorAll('.event');
             events.forEach(event => {
                 if (event.classList.contains(category)) {
-                    event.style.display = 'block';
+                    event.classList.remove('hidden');
                 } else {
-                    event.style.display = 'none';
+                    event.classList.add('hidden');
                 }
             });
         }
