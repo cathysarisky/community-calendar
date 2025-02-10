@@ -179,7 +179,7 @@
                 <div class="time-slot">
                     <div class="time-label">{{ time }}</div>
                     {% for event in events %}
-                    <div class="event {% if time == 'All Day' %}all-day{% endif %}">
+                    <div class="event {% if time == 'All Day' %}all-day{% endif %} {{ event.category }}">
                         <div class="event-title">{{ event.summary }}</div>
                         <div class="event-details">
                             {% if event.url %}

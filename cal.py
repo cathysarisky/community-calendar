@@ -332,11 +332,14 @@ def read_and_process_feeds(file_path, default_timezone):
         for line in file:
             line = line.strip()
             if line and not line.startswith('#'):
-                url = line
+                parts = line.split()
+                url = parts[0]
+                category = parts[1] if len(parts) > 1 else "Uncategorized"
                 name, events, total_events, oldest_day, newest_day = fetch_and_process_calendar(url, default_timezone)
                 feeds.append({
                     'name': name,
                     'url': url,
+                    'category': category,
                     'total_events': total_events,
                     'oldest_day': oldest_day.strftime('%Y-%m-%d') if oldest_day else 'N/A',
                     'newest_day': newest_day.strftime('%Y-%m-%d') if newest_day else 'N/A'
