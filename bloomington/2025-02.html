@@ -145,6 +145,9 @@
             cursor: pointer;
             border-radius: 5px;
         }
+        .filter-buttons button.active {
+            background-color: #0099ff;
+        }
 
         .filter-buttons button:hover {
             background-color: #0056b3;
@@ -182,20 +185,19 @@
                 view</a></span> <span class="switcher"><a href="#feeds">feeds</a></span></h1>
     <div class="filter-buttons">
 
-        <button onclick="filterCategory('zzzswqer')">All</button>
-
+        <button class="active" id="all" onclick="filterCategory('all')">Show all</button>
         
-        <button onclick="filterCategory('Arts')">Arts</button>
+        <button id="Arts" onclick="filterCategory('Arts')">Arts</button>
         
-        <button onclick="filterCategory('Community')">Community</button>
+        <button id="Community" onclick="filterCategory('Community')">Community</button>
         
-        <button onclick="filterCategory('Education')">Education</button>
+        <button id="Education" onclick="filterCategory('Education')">Education</button>
         
-        <button onclick="filterCategory('General')">General</button>
+        <button id="General" onclick="filterCategory('General')">General</button>
         
-        <button onclick="filterCategory('Government')">Government</button>
+        <button id="Government" onclick="filterCategory('Government')">Government</button>
         
-        <button onclick="filterCategory('Music')">Music</button>
+        <button id="Music" onclick="filterCategory('Music')">Music</button>
         
     </div>
     <div class="calendar-container">
@@ -11554,13 +11556,28 @@ Try out this family-friendly recipe, & leave with groceries to recreate it at ho
     <script>
         function filterCategory(category) {
             const events = document.querySelectorAll('.event');
-            events.forEach(event => {
-                if (event.classList.contains(category)) {
-                    event.classList.remove('hidden');
-                } else {
-                    event.classList.add('hidden');
-                }
+            
+            let button = document.getElementById(category);
+            let allbuttons = document.querySelectorAll('.filter-buttons button');
+
+            allbuttons.forEach(button => {
+                button.classList.remove('active');
             });
+            button.classList.add('active');
+
+            if (category != 'all') {
+                events.forEach(event => {
+                    if (event.classList.contains(category)) {
+                        event.classList.remove('hidden');
+                    } else {
+                        event.classList.add('hidden');
+                    }
+                })
+            } else {
+                events.forEach(event => {
+                    event.classList.remove('hidden');
+                });
+            }
         }
 
         document.addEventListener("DOMContentLoaded", function () {
