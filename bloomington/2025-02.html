@@ -127,6 +127,25 @@
             font-size: small;
         }
 
+        .filter-buttons {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .filter-buttons button {
+            margin: 5px;
+            padding: 10px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .filter-buttons button:hover {
+            background-color: #0056b3;
+        }
+
         @media (max-width: 768px) {
             .calendar {
                 grid-template-columns: repeat(7, minmax(100px, 1fr));
@@ -157,7 +176,21 @@
 <body>
     <h1>February 2025 <span class="switcher"><a href="2025-02-l.html">list
                 view</a></span> <span class="switcher"><a href="#feeds">feeds</a></span></h1>
-
+    <div class="filter-buttons">
+        
+        <button onclick="filterCategory('Arts')">Arts</button>
+        
+        <button onclick="filterCategory('Community')">Community</button>
+        
+        <button onclick="filterCategory('Education')">Education</button>
+        
+        <button onclick="filterCategory('General')">General</button>
+        
+        <button onclick="filterCategory('Government')">Government</button>
+        
+        <button onclick="filterCategory('Music')">Music</button>
+        
+    </div>
     <div class="calendar-container">
         <div class="calendar">
             <div class="weekday">Monday</div>
@@ -11512,6 +11545,17 @@ Try out this family-friendly recipe, & leave with groceries to recreate it at ho
     <script src="../sorttable.js"></script>
 
     <script>
+        function filterCategory(category) {
+            const events = document.querySelectorAll('.event');
+            events.forEach(event => {
+                if (event.classList.contains(category)) {
+                    event.style.display = 'block';
+                } else {
+                    event.style.display = 'none';
+                }
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             const events = document.querySelectorAll('.event-title');
 
