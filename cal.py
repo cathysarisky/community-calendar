@@ -132,7 +132,8 @@ def parse_and_localize_event(event, source_tz, target_tz, cal_name):
         'original_start': dtstart.dt,
         'original_end': dtend.dt if dtend else None,
         'grouping_date': grouping_date,
-        'source': cal_name
+        'source': cal_name,
+        'category': str(event.get('category'))
     }
 
 def group_events_by_time(events):
