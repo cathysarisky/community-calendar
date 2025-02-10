@@ -92,7 +92,7 @@ def parse_vtimezone(cal):
         logger.error(f"Error details: {e}")
     return timezones
 
-def parse_and_localize_event(event, source_tz, target_tz, cal_name):
+def parse_and_localize_event(event, source_tz, target_tz, cal_name, category):
     dtstart = event.get('dtstart')
     dtend = event.get('dtend')
     
@@ -133,7 +133,7 @@ def parse_and_localize_event(event, source_tz, target_tz, cal_name):
         'original_end': dtend.dt if dtend else None,
         'grouping_date': grouping_date,
         'source': cal_name,
-        'category': str(event.get('category'))
+        'category': category
     }
 
 def group_events_by_time(events):
@@ -272,7 +272,7 @@ def determine_timezone(vtimezone_info, x_wr_timezone, default_timezone):
     logger.warning("Unable to determine timezone and invalid default timezone. Using UTC.")
     return pytz.UTC
 
-def fetch_and_process_calendar(url, default_timezone):
+def fetch_and_process_calendar(url, default_timezone, category):
     try:
         response = requests.get(url, verify=False)
         response.raise_for_status()
@@ -305,7 +305,7 @@ def fetch_and_process_calendar(url, default_timezone):
             try:
                 if 'CATEGORIES' in event:
                     logger.info(f"CATEGORIES {event['CATEGORIES'].to_ical().decode('utf-8')} [[{event['SUMMARY']}]]")
-                processed_event = parse_and_localize_event(event, source_tz, target_tz, cal_name)
+                processed_event = parse_and_localize_event(event, source_tz, target_tz, cal_name, category)
                 processed_events.append(processed_event)
 
                 event_date = processed_event['start'].date() if isinstance(processed_event['start'], datetime) else processed_event['start']
@@ -336,7 +336,7 @@ def read_and_process_feeds(file_path, default_timezone):
                 parts = line.split()
                 url = parts[0]
                 category = parts[1] if len(parts) > 1 else "Uncategorized"
-                name, events, total_events, oldest_day, newest_day = fetch_and_process_calendar(url, default_timezone)
+                name, events, total_events, oldest_day, newest_day = fetch_and_process_calendar(url, default_timezone, category)
                 feeds.append({
                     'name': name,
                     'url': url,
@@ -378,7 +378,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     if args.dry_run:
-        name, events, total_events, oldest_day, newest_day = fetch_and_process_calendar(args.dry_run, args.timezone)
+        name, events, total_events, oldest_day, newest_day = fetch_and_process_calendar(args.dry_run, args.timezone, "Uncategorized")
         print(f"Calendar Name: {name}")
         print(f"Number of events: {total_events}")
         print(f"Oldest event date: {oldest_day.strftime('%Y-%m-%d') if oldest_day else 'N/A'}")
