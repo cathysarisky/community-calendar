@@ -39,6 +39,7 @@
             min-width: 100px;
             /* Ensure each day/weekday has a minimum width */
             box-sizing: border-box;
+            min-height: 100px;
         }
 
         .date {
@@ -181,6 +182,7 @@
     <h1>{{ month_year }} <span class="switcher"><a href="{{ year }}-{{ '%02d'|format(month) }}-l.html">list
                 view</a></span> <span class="switcher"><a href="#feeds">feeds</a></span></h1>
     <div class="filter-buttons">
+        <button onclick="filterCategory('zzzswqer')">All</button>
         {% for category in calendar_categories %}
         <button onclick="filterCategory('{{ category }}')">{{ category }}</button>
         {% endfor %}
