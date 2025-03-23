@@ -9,13 +9,7 @@ from dateutil.relativedelta import relativedelta
 
 # Library-specific configurations
 LIBRARY_CONFIGS = {
-    'santarosa': {
-        'base_url': 'https://events.sonomalibrary.org/events/list?page=',
-        'url_prefix': 'https://events.sonomalibrary.org',
-        'timezone': 'US/Pacific',
-        'prodid': '-//Santa Rosa Library Events//',
-        'calname': 'Santa Rosa Library'
-    },
+
     'bloomington': {
         'base_url': 'https://www.bloomingtonlibrary.org/events/list?page=',
         'url_prefix': 'https://www.bloomingtonlibrary.org',

@@ -6,7 +6,7 @@ permissions:
 on:
   workflow_dispatch:
   schedule:
-    - cron: '42 16 * * *'  # Runs at 20:10 UTC every day
+    - cron: '43 14 * * *'  # Runs at 20:10 UTC every day
 
 jobs:
   generate-calendar:
