@@ -127,4 +127,3 @@ https://calendar.google.com/calendar/ical/bloomington.in.gov_1rosks8nont4ebaq41t
 https://calendar.google.com/calendar/ical/bb6da6e485bd3f8338c2c50af635412f453f5ce6197826781dab39045a8a72d9%40group.calendar.google.com/public/basic.ics Community
 https://calendar.google.com/calendar/ical/fhsoobl7tj0im87d5t2lhgqiogl5mj01%40import.calendar.google.com/public/basic.ics Music
 https://calendar.google.com/calendar/ical/vuhm07g00u0cod5kr293vvef3mh0ooq3%40import.calendar.google.com/public/basic.ics Government
-webcal://tockify.com/api/feeds/ics/bloomington.arts.calendar community
